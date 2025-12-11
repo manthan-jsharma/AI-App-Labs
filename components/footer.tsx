@@ -1,17 +1,16 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { RevealOnScroll } from "@/components/reveal-on-scroll"
-import { MagneticButton } from "@/components/magnetic-button"
-import { ArrowUpRight, Mail, Twitter, Linkedin } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useState } from "react"
+import Link from "next/link";
+import { RevealOnScroll } from "@/components/reveal-on-scroll";
+import { MagneticButton } from "@/components/magnetic-button";
+import { ArrowUpRight, Mail, Twitter, Linkedin } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 const footerLinks = {
   company: [
-    { label: "About", href: "#" },
     { label: "Work", href: "#work" },
-    { label: "Blog", href: "#" },
+    { label: "Whitelabel", href: "#" },
     { label: "Contact", href: "#" },
   ],
   resources: [
@@ -19,16 +18,16 @@ const footerLinks = {
     { label: "Testimonials", href: "#testimonials" },
     { label: "FAQs", href: "#faq" },
   ],
-}
+};
 
 const socialLinks = [
   { icon: Twitter, href: "#", label: "Twitter" },
   { icon: Linkedin, href: "#", label: "LinkedIn" },
   { icon: Mail, href: "#", label: "Email" },
-]
+];
 
 export function Footer() {
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("");
 
   return (
     <footer className="relative bg-card border-t border-border/50 overflow-hidden">
@@ -42,7 +41,10 @@ export function Footer() {
           {/* Brand section */}
           <RevealOnScroll direction="left">
             <div>
-              <Link href="/" className="group inline-flex items-center gap-2 mb-6">
+              <Link
+                href="/"
+                className="group inline-flex items-center gap-2 mb-6"
+              >
                 <span className="text-3xl font-black text-foreground transition-colors group-hover:text-accent">
                   Creme
                 </span>
@@ -50,13 +52,15 @@ export function Footer() {
               </Link>
 
               <p className="text-muted-foreground mb-8 max-w-md leading-relaxed">
-                The partner for founders building products with AI. Design, build, and launch products that scale —
-                fast.
+                The partner for founders building products with AI. Design,
+                build, and launch products that scale — fast.
               </p>
 
               {/* Newsletter signup */}
               <div className="mb-8">
-                <p className="text-sm text-muted-foreground mb-3">Subscribe to stay updated.</p>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Subscribe to stay updated.
+                </p>
                 <div className="flex gap-2">
                   <input
                     type="email"
@@ -95,7 +99,9 @@ export function Footer() {
             <div className="grid grid-cols-2 gap-8">
               {Object.entries(footerLinks).map(([category, links]) => (
                 <div key={category}>
-                  <h4 className="text-sm font-bold text-foreground uppercase tracking-wider mb-4">{category}</h4>
+                  <h4 className="text-sm font-bold text-foreground uppercase tracking-wider mb-4">
+                    {category}
+                  </h4>
                   <ul className="space-y-3">
                     {links.map((link) => (
                       <li key={link.label}>
@@ -118,12 +124,20 @@ export function Footer() {
         {/* Bottom bar */}
         <RevealOnScroll direction="up">
           <div className="pt-8 border-t border-border/30 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-muted-foreground">© 2025 Creme Digital — All rights reserved</p>
+            <p className="text-sm text-muted-foreground">
+              © 2025 Creme Digital — All rights reserved
+            </p>
             <div className="flex gap-6">
-              <Link href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">
+              <Link
+                href="#"
+                className="text-sm text-muted-foreground hover:text-accent transition-colors"
+              >
                 Privacy Policy
               </Link>
-              <Link href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">
+              <Link
+                href="#"
+                className="text-sm text-muted-foreground hover:text-accent transition-colors"
+              >
                 Terms of Service
               </Link>
             </div>
@@ -131,5 +145,5 @@ export function Footer() {
         </RevealOnScroll>
       </div>
     </footer>
-  )
+  );
 }

@@ -8,7 +8,7 @@ export const projects = [
     fullDescription:
       "Helps content creators, founders, and marketers generate high-performing, viral content and advertisements automatically, drastically reducing production time.",
     image: "/GetLennyAI.png",
-    gradient: "from-pink-500 to-rose-500",
+    gradient: "from-orange-600 to-orange-400",
     stats: { status: "Live", type: "Content Tool", efficiency: "10x" },
     technologies: ["Next.js", "React", "AI Video", "Cloudflare"],
     year: "2024",
@@ -24,7 +24,7 @@ export const projects = [
     fullDescription:
       "A comprehensive system that automates the entire grant lifecycle: from finding relevant opportunities to writing compelling proposals and handling submission.",
     image: "/AI-Grant-Writing.png",
-    gradient: "from-orange-500 to-amber-500",
+    gradient: "from-orange-600 to-orange-400",
     stats: { status: "Live", type: "Automation", focus: "Grants" },
     technologies: ["Next.js", "OpenAI", "Supabase", "Stripe"],
     year: "2024",
@@ -40,7 +40,7 @@ export const projects = [
     fullDescription:
       "A complete end-to-end AI platform allowing users to build and resell AI agents. This product was built from zero to live execution, featuring complex agent orchestration and billing systems.",
     image: "/MorpheusAI.png",
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-orange-600 to-orange-400",
     stats: { status: "Live", type: "SaaS", delivery: "14 Days" },
     technologies: ["Next.js", "LangChain", "Supabase", "Stripe Connect"],
     year: "2024",
@@ -57,7 +57,7 @@ export const projects = [
     fullDescription:
       "Fund2Grow streamlines the funding process by using AI to analyze credit profiles and automatically submit applications to over 80 lenders on autopilot.",
     image: "/Fund2Grow.png",
-    gradient: "from-green-500 to-emerald-600",
+    gradient: "from-orange-600 to-orange-400",
     stats: { status: "Live", type: "FinTech", automation: "100%" },
     technologies: ["Next.js", "Plaid", "Python", "AWS"],
     year: "2024",
@@ -73,7 +73,7 @@ export const projects = [
     fullDescription:
       "We automated the entire sales outreach process. Limora allows users to scrape leads, enrich data, and send AI-personalized emails at scale.",
     image: "/LimoraAI.png", // Using best fit placeholder
-    gradient: "from-violet-500 to-purple-500",
+    gradient: "from-orange-600 to-orange-400",
     stats: { status: "Live", type: "CRM", delivery: "14 Days" },
     technologies: ["Next.js", "OpenAI", "Resend", "PostgreSQL"],
     year: "2024",
@@ -89,7 +89,7 @@ export const projects = [
     fullDescription:
       "Real-time voice AI that handles inbound and outbound sales calls. Features ultra-low latency voice processing and direct CRM integration.",
     image: "/CloseWorksAI.png",
-    gradient: "from-emerald-500 to-teal-500",
+    gradient: "from-orange-600 to-orange-400",
     stats: { status: "Live", type: "Voice AI", delivery: "14 Days" },
     technologies: ["Vapi.ai", "Python", "Next.js", "Twilio"],
     year: "2024",
@@ -115,7 +115,7 @@ export const pricingPlans = [
       "14 Days Post-Launch Support",
     ],
     cta: "Build MVP",
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-zinc-700 to-zinc-500",
     popular: false,
   },
   {
@@ -156,7 +156,7 @@ export const pricingPlans = [
       "Exit Planning Roadmap",
     ],
     cta: "Build Enterprise",
-    gradient: "from-violet-500 to-purple-500",
+    gradient: "from-zinc-900 to-orange-900",
     popular: false,
   },
 ];
@@ -168,7 +168,7 @@ export const processSteps = [
     subtitle: "Day 1",
     description:
       "We don't wait for 'Discovery'. You get a clickable, working model in your hands before the sun goes down on Day 1.",
-    gradient: "from-accent to-orange-500",
+    gradient: "from-orange-500 to-zinc-500",
   },
   {
     id: 2,
@@ -176,7 +176,7 @@ export const processSteps = [
     subtitle: "Days 2–13",
     description:
       "Radical transparency. We code user flows, auth, and billing. You get a Loom update every single day by EOD. No ghosting.",
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-orange-500 to-zinc-500",
   },
   {
     id: 3,
@@ -184,7 +184,7 @@ export const processSteps = [
     subtitle: "Day 14",
     description:
       "We don't just hand over keys; we install the engine. We deploy the app + activate the Tier 2 Distribution System.",
-    gradient: "from-emerald-500 to-teal-500",
+    gradient: "from-orange-500 to-zinc-500",
   },
 ];
 export const conceptExamples = [

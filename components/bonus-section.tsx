@@ -61,7 +61,7 @@ export function BonusSection() {
                             <CheckCircle
                               className={`w-6 h-6 shrink-0 mt-0.5 ${
                                 item.highlight
-                                  ? "text-green-500"
+                                  ? "text-orange-500"
                                   : "text-accent"
                               }`}
                             />
@@ -69,7 +69,7 @@ export function BonusSection() {
                               <div
                                 className={`font-bold text-lg ${
                                   item.highlight
-                                    ? "text-green-500"
+                                    ? "text-orange-500"
                                     : "text-foreground"
                                 }`}
                               >

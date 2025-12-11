@@ -25,19 +25,19 @@ const features = [
     title: "The Stack",
     description: "Next.js / TypeScript / Python / Supabase / Stripe.",
     icon: Code2,
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-zinc-500 to-orange-500",
   },
   {
     title: "The Asset",
     description: "Clean repo. Full documentation. No platform lock-in.",
     icon: GitBranch,
-    gradient: "from-green-500 to-emerald-500",
+    gradient: "from-orange-500 to-zinc-500",
   },
   {
     title: "The AI",
     description: "Integration with OpenAI, Anthropic, and open-source LLMs.",
     icon: Terminal,
-    gradient: "from-orange-500 to-red-500",
+    gradient: "from-orange-500 to-zinc-500",
   },
 ];
 
@@ -56,7 +56,7 @@ export function TechStackSection() {
           {/* LEFT: Copy */}
           <RevealOnScroll direction="left">
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-500/30 bg-green-500/5 text-sm text-green-400 mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-500/30 bg-green-500/5 text-sm text-orange-400 mb-8">
                 <Unlock className="w-4 h-4" />
                 <span className="font-bold tracking-widest uppercase">
                   Anti-Lock-in Guarantee
@@ -71,7 +71,7 @@ export function TechStackSection() {
                   stagger={30}
                 />
                 <div className="mt-2">
-                  <AnimatedGradientText className="text-3xl md:text-5xl from-green-400 to-emerald-600">
+                  <AnimatedGradientText className="text-3xl md:text-5xl from-orange-900 to-zinc-900">
                     100% IP Transfer.
                   </AnimatedGradientText>
                 </div>
@@ -96,7 +96,7 @@ export function TechStackSection() {
                         <feature.icon className="w-7 h-7 text-white" />
                       </div>
                       <div>
-                        <h4 className="text-xl font-bold mb-2 group-hover:text-green-400 transition-colors">
+                        <h4 className="text-xl font-bold mb-2 group-hover:text-orange-400 transition-colors">
                           {feature.title}
                         </h4>
                         <p className="text-muted-foreground text-lg">
@@ -120,15 +120,15 @@ export function TechStackSection() {
                 frequency={1.5}
                 className="absolute -top-8 -right-8 z-20 hidden md:block"
               >
-                <div className="px-6 py-3 rounded-2xl bg-card border border-green-500/30 shadow-[0_0_30px_-10px_rgba(16,185,129,0.3)] backdrop-blur-xl flex items-center gap-3">
-                  <div className="p-2 bg-green-500/20 rounded-lg">
-                    <Key className="w-4 h-4 text-green-400" />
+                <div className="px-6 py-3 rounded-2xl bg-card border border-orange-500/30 shadow-[0_0_30px_-10px_rgba(16,185,129,0.3)] backdrop-blur-xl flex items-center gap-3">
+                  <div className="p-2 bg-zinc-500/20 rounded-lg">
+                    <Key className="w-4 h-4 text-zinc-400" />
                   </div>
                   <div>
                     <div className="text-[10px] text-muted-foreground uppercase font-bold">
                       Access Level
                     </div>
-                    <div className="text-sm font-bold text-green-400">
+                    <div className="text-sm font-bold text-orange-400">
                       ADMIN / OWNER
                     </div>
                   </div>
@@ -156,50 +156,50 @@ export function TechStackSection() {
                   {/* Code Content */}
                   <div className="mt-8 space-y-2 font-mono text-sm md:text-base leading-relaxed">
                     <div className="text-muted-foreground">
-                      <span className="text-purple-400">const</span>{" "}
-                      <span className="text-blue-400">newAsset</span> ={" "}
-                      <span className="text-yellow-400">{"{"}</span>
+                      <span className="text-zinc-400">const</span>{" "}
+                      <span className="text-orange-400">newAsset</span> ={" "}
+                      <span className="text-orange-400">{"{"}</span>
                     </div>
 
                     <div className="pl-6 group-hover:pl-8 transition-all duration-300">
-                      <span className="text-cyan-400">repo</span>:{" "}
-                      <span className="text-green-400">
+                      <span className="text-zinc-400">repo</span>:{" "}
+                      <span className="text-orange-400">
                         "github.com/you/repo"
                       </span>
                       ,
                     </div>
                     <div className="pl-6 group-hover:pl-8 transition-all duration-300 delay-75">
-                      <span className="text-cyan-400">database</span>:{" "}
-                      <span className="text-green-400">"Supabase PRO"</span>,
+                      <span className="text-zinc-400">database</span>:{" "}
+                      <span className="text-orange-400">"Supabase PRO"</span>,
                     </div>
                     <div className="pl-6 group-hover:pl-8 transition-all duration-300 delay-150">
-                      <span className="text-cyan-400">payments</span>:{" "}
-                      <span className="text-green-400">"Stripe Connect"</span>,
+                      <span className="text-zinc-400">payments</span>:{" "}
+                      <span className="text-orange-400">"Stripe Connect"</span>,
                     </div>
                     <div className="pl-6 group-hover:pl-8 transition-all duration-300 delay-200">
-                      <span className="text-cyan-400">license</span>:{" "}
+                      <span className="text-zinc-400">license</span>:{" "}
                       <span className="text-orange-400">
                         "MIT / PROPRIETARY"
                       </span>
                     </div>
 
-                    <div className="text-yellow-400">{"}"}</div>
+                    <div className="text-orange-400">{"}"}</div>
                     <div className="h-4"></div>
 
                     <div className="text-muted-foreground">
-                      <span className="text-purple-400">await</span>{" "}
-                      <span className="text-blue-400">transferRights</span>
+                      <span className="text-zinc-400">await</span>{" "}
+                      <span className="text-orange-400">transferRights</span>
                       (newAsset);
                     </div>
 
                     {/* Animated Cursor Output */}
                     <div className="pt-4 flex items-center gap-2">
-                      <span className="text-green-500 font-bold">➜</span>
-                      <span className="text-green-400 font-bold typing-cursor">
+                      <span className="text-orange-500 font-bold">➜</span>
+                      <span className="text-orange-400 font-bold typing-cursor">
                         Transfer Complete.
                       </span>
                     </div>
-                    <div className="text-green-400/70 text-xs pl-6">
+                    <div className="text-zinc-400/70 text-xs pl-6">
                       Owner: YOU
                     </div>
                   </div>

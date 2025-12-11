@@ -120,7 +120,7 @@ export function CTASection() {
               >
                 <Link href="https://cal.com/aiapps.dev/30min" target="_blank">
                   <span className="flex items-center gap-3">
-                    BUILD YOUR SAAS
+                    BOOK YOUR SAAS
                     <ArrowRight className="w-6 h-6 md:w-8 md:h-8" />
                   </span>
                 </Link>
