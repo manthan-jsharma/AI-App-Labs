@@ -24,12 +24,12 @@ export default function Home() {
       <MouseTrail />
       <Header />
       <HeroSection />
-      <StatsSection />
       <WorkShowcaseSection />
       <HowWeWorkSection />
       <FeaturesSection />
       <TechStackSection />
       <PricingSection />
+      <StatsSection />
       <BonusSection />
       <FAQSection />
       <CTASection />

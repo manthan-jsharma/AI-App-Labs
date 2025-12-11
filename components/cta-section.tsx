@@ -12,7 +12,10 @@ import { cn } from "@/lib/utils";
 
 export function CTASection() {
   return (
-    <section className="py-32 bg-background relative overflow-hidden text-center">
+    <section
+      id="testimonials"
+      className="py-32 bg-background relative overflow-hidden text-center"
+    >
       {/* Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
       <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />

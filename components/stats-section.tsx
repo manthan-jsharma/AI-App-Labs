@@ -299,7 +299,7 @@ export function StatsSection() {
 
         {/* DASHBOARD CAROUSEL + WHITE LABEL PITCH */}
         <RevealOnScroll delay={500} direction="scale">
-          <div className="max-w-5xl mx-auto mb-24">
+          <div id="white-label" className="max-w-5xl mx-auto mb-24">
             <div className="text-center mb-12">
               <h3 className="text-2xl md:text-3xl font-black mb-3">
                 Your Future Command Center
