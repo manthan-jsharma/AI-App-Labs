@@ -189,13 +189,13 @@ export const projects = [
   },
   {
     id: "closeworks",
-    name: "CLoseWorksAI.png",
+    name: "CLoseWorksAI",
     category: "AI Phone Rep",
     description:
       "AI phone live representative agent. Built for Client Jaylen Feliciano.",
     fullDescription:
       "Real-time voice AI that handles inbound and outbound sales calls. Features ultra-low latency voice processing and direct CRM integration.",
-    image: "/sales-coaching-ai-interface-call-analytics-dark.jpg",
+    image: "/CloseWorksAI.png",
     gradient: "from-emerald-500 to-teal-500",
     stats: { status: "Live", type: "Voice AI", delivery: "14 Days" },
     technologies: ["Vapi.ai", "Python", "Next.js", "Twilio"],
