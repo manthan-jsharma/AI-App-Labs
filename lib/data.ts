@@ -96,51 +96,6 @@ export const projects = [
     link: "https://www.closeworks.io/#/",
     founder: "Jaylen Feliciano",
   },
-
-  {
-    id: "prolific-run",
-    name: "Prolific Run",
-    category: "Traffic AI",
-    description:
-      "AI Traffic Engine designed to drive targeted visitors to your offers.",
-    fullDescription:
-      "A powerful AI-driven traffic generation engine that automates visitor acquisition and optimizes for conversion.",
-    image: "/kpi-dashboard-analytics-dark-theme-executive.jpg",
-    gradient: "from-indigo-500 to-violet-500",
-    stats: { status: "Live", type: "Traffic Engine", scale: "Global" },
-    technologies: ["Python", "Next.js", "Data Analysis", "Redis"],
-    year: "2024",
-    link: "https://ProlificRun.ai",
-  },
-  // {
-  //   id: "viral-app",
-  //   name: "Viral.app",
-  //   category: "Viral UGC",
-  //   description: "Optimize viral UGC content creation.",
-  //   fullDescription:
-  //     "An AI-powered tool designed to analyze and optimize user-generated content for maximum viral potential on TikTok and Reels.",
-  //   image: "/ViralAPP.png",
-  //   gradient: "from-orange-500 to-red-500",
-  //   stats: { status: "Concept", type: "Content", delivery: "14 Days" },
-  //   technologies: ["Next.js", "FFmpeg", "OpenAI Vision"],
-  //   year: "2025",
-  //   link: "https://viral.app",
-  // },
-  // {
-  //   id: "migma",
-  //   name: "Migma AI",
-  //   category: "Email AI",
-  //   description:
-  //     "Lovable for Email. Automated newsletter and drip campaign builder.",
-  //   fullDescription:
-  //     "A 'Lovable-like' interface for building complex email marketing flows using natural language prompts.",
-  //   image: "/MigmaAI.png",
-  //   gradient: "from-pink-500 to-rose-500",
-  //   stats: { status: "Concept", type: "Email", delivery: "14 Days" },
-  //   technologies: ["Next.js", "Resend", "Supabase"],
-  //   year: "2025",
-  //   link: "https://migma.ai",
-  // },
 ];
 
 export const pricingPlans = [
