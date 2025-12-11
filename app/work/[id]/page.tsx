@@ -1,20 +1,24 @@
-import { notFound } from "next/navigation"
-import { projects } from "@/components/work-showcase-section"
-import { ProjectPageClient } from "./project-page-client"
+import { notFound } from "next/navigation";
+import { projects } from "@/lib/data";
+import { ProjectPageClient } from "./project-page-client";
 
 export function generateStaticParams() {
   return projects.map((project) => ({
     id: project.id,
-  }))
+  }));
 }
 
-export default async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
-  const project = projects.find((p) => p.id === id)
+export default async function ProjectPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const project = projects.find((p) => p.id === id);
 
   if (!project) {
-    notFound()
+    notFound();
   }
 
-  return <ProjectPageClient project={project} />
+  return <ProjectPageClient project={project} />;
 }

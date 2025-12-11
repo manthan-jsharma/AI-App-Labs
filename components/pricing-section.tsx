@@ -1,19 +1,21 @@
-"use client"
+"use client";
 
-import { Check, ArrowRight, Sparkles } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { RevealOnScroll } from "@/components/reveal-on-scroll"
-import { TiltCard } from "@/components/tilt-card"
-import { MagneticButton } from "@/components/magnetic-button"
-import { AnimatedGradientText } from "@/components/animated-gradient"
-import { cn } from "@/lib/utils"
-import { useState } from "react"
+import { Check, ArrowRight, Sparkles } from "lucide-react";
+import Link from "next/link"; // Added import
+import { Button } from "@/components/ui/button";
+import { RevealOnScroll } from "@/components/reveal-on-scroll";
+import { TiltCard } from "@/components/tilt-card";
+import { MagneticButton } from "@/components/magnetic-button";
+import { AnimatedGradientText } from "@/components/animated-gradient";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 const pricingPlans = [
   {
     id: 1,
     name: "2-Week Sprints",
-    description: "For teams who want to move fast — strategy, design & development delivered in 14 days.",
+    description:
+      "For teams who want to move fast — strategy, design & development delivered in 14 days.",
     price: "$4,500",
     period: "Bi-Weekly",
     features: [
@@ -26,6 +28,7 @@ const pricingPlans = [
       "Weekly progress updates",
     ],
     cta: "Book a Call",
+    href: "https://cal.com/aiapps.dev/30min", // Added specific URL
     gradient: "from-violet-500 to-purple-500",
     popular: false,
   },
@@ -45,13 +48,20 @@ const pricingPlans = [
       "Weekly progress updates",
     ],
     cta: "Get Started Today",
+    href: "#", // Placeholder
     gradient: "from-accent to-orange-500",
     popular: true,
   },
-]
+];
 
-function PricingCard({ plan, index }: { plan: (typeof pricingPlans)[0]; index: number }) {
-  const [isHovered, setIsHovered] = useState(false)
+function PricingCard({
+  plan,
+  index,
+}: {
+  plan: typeof pricingPlans[0];
+  index: number;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <TiltCard maxTilt={5}>
@@ -64,7 +74,7 @@ function PricingCard({ plan, index }: { plan: (typeof pricingPlans)[0]; index: n
           className={cn(
             "relative h-full p-8 md:p-10 rounded-3xl bg-gradient-to-br from-card via-card to-background border border-border/50 overflow-hidden transition-all duration-500",
             isHovered && "border-accent/30",
-            plan.popular && "border-accent/50",
+            plan.popular && "border-accent/50"
           )}
         >
           {/* Popular badge */}
@@ -73,7 +83,7 @@ function PricingCard({ plan, index }: { plan: (typeof pricingPlans)[0]; index: n
               <div
                 className={cn(
                   "px-4 py-1.5 rounded-full bg-gradient-to-r text-white text-xs font-bold flex items-center gap-1",
-                  plan.gradient,
+                  plan.gradient
                 )}
               >
                 <Sparkles className="w-3 h-3" />
@@ -87,7 +97,7 @@ function PricingCard({ plan, index }: { plan: (typeof pricingPlans)[0]; index: n
             className={cn(
               "absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500",
               plan.gradient,
-              isHovered && "opacity-5",
+              isHovered && "opacity-5"
             )}
           />
 
@@ -96,29 +106,40 @@ function PricingCard({ plan, index }: { plan: (typeof pricingPlans)[0]; index: n
             className={cn(
               "absolute -top-32 -right-32 w-64 h-64 rounded-full blur-3xl transition-all duration-500",
               `bg-gradient-to-br ${plan.gradient}`,
-              isHovered || plan.popular ? "opacity-30 scale-125" : "opacity-0 scale-100",
+              isHovered || plan.popular
+                ? "opacity-30 scale-125"
+                : "opacity-0 scale-100"
             )}
           />
 
           <div className="relative z-10">
             {/* Plan name */}
-            <h3 className="text-2xl font-black text-foreground mb-1">{plan.name}</h3>
+            <h3 className="text-2xl font-black text-foreground mb-1">
+              {plan.name}
+            </h3>
             {plan.subtitle && (
               <span
-                className={cn("text-sm font-semibold bg-gradient-to-r bg-clip-text text-transparent", plan.gradient)}
+                className={cn(
+                  "text-sm font-semibold bg-gradient-to-r bg-clip-text text-transparent",
+                  plan.gradient
+                )}
               >
                 {plan.subtitle}
               </span>
             )}
 
-            <p className="text-muted-foreground mt-3 mb-6">{plan.description}</p>
+            <p className="text-muted-foreground mt-3 mb-6">
+              {plan.description}
+            </p>
 
             {/* Price */}
             <div className="mb-8">
               <span className="text-5xl md:text-6xl font-black">
                 <AnimatedGradientText>{plan.price}</AnimatedGradientText>
               </span>
-              <span className="text-muted-foreground ml-2">/ {plan.period}</span>
+              <span className="text-muted-foreground ml-2">
+                / {plan.period}
+              </span>
             </div>
 
             {/* Features */}
@@ -133,7 +154,12 @@ function PricingCard({ plan, index }: { plan: (typeof pricingPlans)[0]; index: n
                     transition: `all 0.3s ease ${i * 30}ms`,
                   }}
                 >
-                  <div className={cn("p-1 rounded-full bg-gradient-to-br mt-0.5", plan.gradient)}>
+                  <div
+                    className={cn(
+                      "p-1 rounded-full bg-gradient-to-br mt-0.5",
+                      plan.gradient
+                    )}
+                  >
                     <Check className="w-3 h-3 text-white" />
                   </div>
                   <span className="text-sm">{feature}</span>
@@ -143,43 +169,54 @@ function PricingCard({ plan, index }: { plan: (typeof pricingPlans)[0]; index: n
 
             {/* CTA Button */}
             <MagneticButton strength={20} className="w-full">
+              {/* FIX: Wrap with Link if href exists, using asChild on Button */}
               <Button
+                asChild
                 className={cn(
                   "w-full rounded-xl py-7 font-bold text-lg transition-all duration-300 group/btn overflow-hidden relative",
                   plan.popular
                     ? `bg-gradient-to-r ${plan.gradient} text-white hover:shadow-lg hover:shadow-accent/25`
-                    : "bg-background border border-border/50 text-foreground hover:border-accent/50",
+                    : "bg-background border border-border/50 text-foreground hover:border-accent/50"
                 )}
               >
-                {!plan.popular && (
+                <Link
+                  href={plan.href}
+                  target={plan.href.startsWith("http") ? "_blank" : undefined}
+                >
+                  {!plan.popular && (
+                    <span
+                      className={cn(
+                        "absolute inset-0 bg-gradient-to-r opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300",
+                        plan.gradient
+                      )}
+                    />
+                  )}
                   <span
                     className={cn(
-                      "absolute inset-0 bg-gradient-to-r opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300",
-                      plan.gradient,
+                      "relative z-10 flex items-center justify-center gap-2",
+                      !plan.popular &&
+                        "group-hover/btn:text-white transition-colors"
                     )}
-                  />
-                )}
-                <span
-                  className={cn(
-                    "relative z-10 flex items-center justify-center gap-2",
-                    !plan.popular && "group-hover/btn:text-white transition-colors",
-                  )}
-                >
-                  {plan.cta}
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover/btn:translate-x-1" />
-                </span>
+                  >
+                    {plan.cta}
+                    <ArrowRight className="w-5 h-5 transition-transform group-hover/btn:translate-x-1" />
+                  </span>
+                </Link>
               </Button>
             </MagneticButton>
           </div>
         </div>
       </div>
     </TiltCard>
-  )
+  );
 }
 
 export function PricingSection() {
   return (
-    <section id="pricing" className="py-32 bg-card border-y border-border/50 relative overflow-hidden">
+    <section
+      id="pricing"
+      className="py-32 bg-card border-y border-border/50 relative overflow-hidden"
+    >
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full bg-accent/3 blur-[200px]" />
@@ -192,10 +229,12 @@ export function PricingSection() {
               PRICING
             </div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6">
-              SIMPLE, <AnimatedGradientText>TRANSPARENT</AnimatedGradientText> PRICING
+              SIMPLE, <AnimatedGradientText>TRANSPARENT</AnimatedGradientText>{" "}
+              PRICING
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Choose the plan that works best for your stage and needs. No hidden fees, no surprises.
+              Choose the plan that works best for your stage and needs. No
+              hidden fees, no surprises.
             </p>
           </div>
         </RevealOnScroll>
@@ -209,5 +248,5 @@ export function PricingSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

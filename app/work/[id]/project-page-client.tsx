@@ -1,74 +1,101 @@
-"use client"
+"use client";
 
-import { useEffect, useState, useRef } from "react"
-import Link from "next/link"
-import { ArrowLeft, ArrowRight, Calendar, Layers, Zap, Code2, Users, TrendingUp, Check } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { MagneticButton } from "@/components/magnetic-button"
-import { RevealOnScroll } from "@/components/reveal-on-scroll"
-import { SplitText } from "@/components/split-text"
-import { Card3D } from "@/components/3d-card"
-import { AnimatedCounter } from "@/components/animated-counter"
-import { GradientBlob } from "@/components/gradient-blob"
-import { TextScramble } from "@/components/text-scramble"
-import { ParallaxLayer } from "@/components/floating-elements"
-import { projects } from "@/components/work-showcase-section"
-import { cn } from "@/lib/utils"
+import { useEffect, useState, useRef } from "react";
+import Link from "next/link";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Calendar,
+  Layers,
+  Zap,
+  Code2,
+  Users,
+  TrendingUp,
+  Check,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { MagneticButton } from "@/components/magnetic-button";
+import { RevealOnScroll } from "@/components/reveal-on-scroll";
+import { SplitText } from "@/components/split-text";
+import { Card3D } from "@/components/3d-card";
+import { AnimatedCounter } from "@/components/animated-counter";
+import { GradientBlob } from "@/components/gradient-blob";
+import { TextScramble } from "@/components/text-scramble";
+import { ParallaxLayer } from "@/components/floating-elements";
+import { projects } from "@/lib/data";
+import { cn } from "@/lib/utils";
 
 interface ProjectPageClientProps {
-  project: (typeof projects)[0]
+  project: typeof projects[0];
 }
 
 export function ProjectPageClient({ project }: ProjectPageClientProps) {
-  const [scrollY, setScrollY] = useState(0)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const heroRef = useRef<HTMLDivElement>(null)
+  const [scrollY, setScrollY] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY)
+    const handleScroll = () => setScrollY(window.scrollY);
     const handleMouseMove = (e: MouseEvent) => {
-      if (!heroRef.current) return
-      const rect = heroRef.current.getBoundingClientRect()
+      if (!heroRef.current) return;
+      const rect = heroRef.current.getBoundingClientRect();
       setMousePosition({
         x: ((e.clientX - rect.left) / rect.width - 0.5) * 20,
         y: ((e.clientY - rect.top) / rect.height - 0.5) * 20,
-      })
-    }
+      });
+    };
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    window.addEventListener("mousemove", handleMouseMove)
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("mousemove", handleMouseMove);
     return () => {
-      window.removeEventListener("scroll", handleScroll)
-      window.removeEventListener("mousemove", handleMouseMove)
-    }
-  }, [])
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
   // Get next and previous projects
-  const currentIndex = projects.findIndex((p) => p.id === project.id)
-  const nextProject = projects[(currentIndex + 1) % projects.length]
-  const prevProject = projects[(currentIndex - 1 + projects.length) % projects.length]
+  const currentIndex = projects.findIndex((p) => p.id === project.id);
+  const nextProject = projects[(currentIndex + 1) % projects.length];
+  const prevProject =
+    projects[(currentIndex - 1 + projects.length) % projects.length];
 
   // Parse stats for counter animation
   const parseStatValue = (value: string) => {
-    const num = Number.parseFloat(value.replace(/[^0-9.]/g, ""))
-    return isNaN(num) ? 0 : num
-  }
+    const num = Number.parseFloat(value.replace(/[^0-9.]/g, ""));
+    return isNaN(num) ? 0 : num;
+  };
 
   const getStatSuffix = (value: string) => {
-    if (value.includes("K")) return "K+"
-    if (value.includes("M")) return "M+"
-    if (value.includes("%")) return "%"
-    if (value.includes("+")) return "+"
-    return ""
-  }
+    if (value.includes("K")) return "K+";
+    if (value.includes("M")) return "M+";
+    if (value.includes("%")) return "%";
+    if (value.includes("+")) return "+";
+    return "";
+  };
 
   // Generate features based on project
   const features = [
-    { icon: Zap, title: "Lightning Fast", description: "Optimized for performance with sub-second load times" },
-    { icon: Layers, title: "Scalable Architecture", description: "Built to handle millions of users effortlessly" },
-    { icon: Users, title: "User-Centric Design", description: "Intuitive interfaces backed by extensive research" },
-    { icon: TrendingUp, title: "Growth Focused", description: "Features designed to drive engagement and retention" },
-  ]
+    {
+      icon: Zap,
+      title: "Lightning Fast",
+      description: "Optimized for performance with sub-second load times",
+    },
+    {
+      icon: Layers,
+      title: "Scalable Architecture",
+      description: "Built to handle millions of users effortlessly",
+    },
+    {
+      icon: Users,
+      title: "User-Centric Design",
+      description: "Intuitive interfaces backed by extensive research",
+    },
+    {
+      icon: TrendingUp,
+      title: "Growth Focused",
+      description: "Features designed to drive engagement and retention",
+    },
+  ];
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -77,7 +104,11 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
         {/* Animated background */}
         <GradientBlob
           className="top-0 left-[10%] w-[800px] h-[800px] opacity-50"
-          colors={["rgba(249,115,22,0.2)", "rgba(251,146,60,0.1)", "transparent"]}
+          colors={[
+            "rgba(249,115,22,0.2)",
+            "rgba(251,146,60,0.1)",
+            "transparent",
+          ]}
         />
         <GradientBlob
           className="bottom-0 right-[5%] w-[600px] h-[600px] opacity-30"
@@ -89,7 +120,8 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
           className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100px_100px]"
           style={{
             transform: `translateY(${scrollY * 0.1}px)`,
-            maskImage: "radial-gradient(ellipse at center, black 20%, transparent 70%)",
+            maskImage:
+              "radial-gradient(ellipse at center, black 20%, transparent 70%)",
           }}
         />
 
@@ -98,7 +130,10 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
           <div className="container mx-auto flex items-center justify-between">
             <Link href="/#work">
               <MagneticButton strength={20}>
-                <Button variant="ghost" className="group gap-2 text-muted-foreground hover:text-foreground">
+                <Button
+                  variant="ghost"
+                  className="group gap-2 text-muted-foreground hover:text-foreground"
+                >
                   <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
                   Back to Work
                 </Button>
@@ -141,14 +176,16 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
                 <div
                   className={cn(
                     "px-5 py-2 rounded-full text-sm font-bold text-white bg-gradient-to-r",
-                    project.gradient,
+                    project.gradient
                   )}
                 >
                   {project.category}
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 bg-card/50 backdrop-blur-sm">
                   <Calendar className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-sm font-mono text-muted-foreground">{project.year}</span>
+                  <span className="text-sm font-mono text-muted-foreground">
+                    {project.year}
+                  </span>
                 </div>
               </div>
             </RevealOnScroll>
@@ -156,7 +193,12 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
             {/* Title */}
             <RevealOnScroll delay={100} direction="up">
               <h1 className="text-5xl md:text-7xl lg:text-[8rem] font-black tracking-tighter mb-8 leading-[0.85]">
-                <SplitText text={project.name} animation="elastic" stagger={50} duration={800} />
+                <SplitText
+                  text={project.name}
+                  animation="elastic"
+                  stagger={50}
+                  duration={800}
+                />
               </h1>
             </RevealOnScroll>
 
@@ -174,9 +216,15 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
                   <Card3D key={key} intensity={8}>
                     <div className="p-6 rounded-2xl bg-card/50 border border-border/30 backdrop-blur-sm text-center">
                       <div className="text-3xl md:text-4xl font-black text-accent mb-2">
-                        <AnimatedCounter value={parseStatValue(value)} suffix={getStatSuffix(value)} duration={2500} />
+                        <AnimatedCounter
+                          value={parseStatValue(value)}
+                          suffix={getStatSuffix(value)}
+                          duration={2500}
+                        />
                       </div>
-                      <div className="text-sm text-muted-foreground capitalize font-medium">{key}</div>
+                      <div className="text-sm text-muted-foreground capitalize font-medium">
+                        {key}
+                      </div>
                     </div>
                   </Card3D>
                 ))}
@@ -189,14 +237,23 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
                 <div
                   className="relative rounded-3xl overflow-hidden border border-border/30"
                   style={{
-                    boxShadow: "0 50px 100px -20px rgba(0,0,0,0.5), 0 0 60px rgba(249,115,22,0.15)",
+                    boxShadow:
+                      "0 50px 100px -20px rgba(0,0,0,0.5), 0 0 60px rgba(249,115,22,0.15)",
                   }}
                 >
                   {/* Animated gradient border */}
                   <div
                     className="absolute inset-0 rounded-3xl p-px"
                     style={{
-                      background: `linear-gradient(135deg, ${project.gradient.includes("violet") ? "rgba(139,92,246,0.5)" : "rgba(249,115,22,0.5)"}, transparent 50%, ${project.gradient.includes("purple") ? "rgba(168,85,247,0.4)" : "rgba(251,146,60,0.4)"})`,
+                      background: `linear-gradient(135deg, ${
+                        project.gradient.includes("violet")
+                          ? "rgba(139,92,246,0.5)"
+                          : "rgba(249,115,22,0.5)"
+                      }, transparent 50%, ${
+                        project.gradient.includes("purple")
+                          ? "rgba(168,85,247,0.4)"
+                          : "rgba(251,146,60,0.4)"
+                      })`,
                     }}
                   />
 
@@ -207,7 +264,9 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
                         alt={project.name}
                         className="w-full h-full object-cover"
                         style={{
-                          transform: `scale(1.1) translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
+                          transform: `scale(1.1) translate(${
+                            mousePosition.x * 0.02
+                          }px, ${mousePosition.y * 0.02}px)`,
                           transition: "transform 0.3s ease-out",
                         }}
                       />
@@ -248,7 +307,7 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
                     <div
                       className={cn(
                         "w-14 h-14 rounded-2xl bg-gradient-to-br flex items-center justify-center mb-6 transition-transform group-hover:scale-110",
-                        project.gradient,
+                        project.gradient
                       )}
                     >
                       <feature.icon className="w-7 h-7 text-white" />
@@ -256,7 +315,9 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
                     <h3 className="text-xl font-bold mb-3 group-hover:text-accent transition-colors">
                       {feature.title}
                     </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {feature.description}
+                    </p>
                   </div>
                 </Card3D>
               </RevealOnScroll>
@@ -276,19 +337,34 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
                   <span className="font-semibold">TECH STACK</span>
                 </div>
                 <h2 className="text-3xl md:text-5xl font-black mb-6">
-                  <SplitText text="Built with" animation="fadeUp" stagger={40} className="block" />
+                  <SplitText
+                    text="Built with"
+                    animation="fadeUp"
+                    stagger={40}
+                    className="block"
+                  />
                   <span className="text-accent">
-                    <SplitText text="Modern Tech" animation="elastic" stagger={50} delay={200} />
+                    <SplitText
+                      text="Modern Tech"
+                      animation="elastic"
+                      stagger={50}
+                      delay={200}
+                    />
                   </span>
                 </h2>
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                  We carefully selected the best technologies to ensure {project.name} is fast, scalable, and
-                  maintainable for years to come.
+                  We carefully selected the best technologies to ensure{" "}
+                  {project.name} is fast, scalable, and maintainable for years
+                  to come.
                 </p>
 
                 <div className="flex flex-wrap gap-3">
                   {project.technologies.map((tech, i) => (
-                    <RevealOnScroll key={tech} delay={300 + i * 50} direction="up">
+                    <RevealOnScroll
+                      key={tech}
+                      delay={300 + i * 50}
+                      direction="up"
+                    >
                       <div className="group px-5 py-3 rounded-full border border-border/50 bg-card/50 backdrop-blur-sm hover:border-accent/50 hover:bg-accent/5 transition-all cursor-default">
                         <span className="font-medium text-muted-foreground group-hover:text-accent transition-colors">
                           {tech}
@@ -317,7 +393,7 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
                         <div
                           className={cn(
                             "w-6 h-6 rounded-full bg-gradient-to-br flex items-center justify-center flex-shrink-0 mt-0.5",
-                            project.gradient,
+                            project.gradient
                           )}
                         >
                           <Check className="w-3.5 h-3.5 text-white" />
@@ -343,13 +419,24 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
           <RevealOnScroll direction="up">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-3xl md:text-5xl lg:text-6xl font-black mb-6">
-                <SplitText text="Ready to build" animation="fadeUp" stagger={40} className="block" />
+                <SplitText
+                  text="Ready to build"
+                  animation="fadeUp"
+                  stagger={40}
+                  className="block"
+                />
                 <span className="text-accent">
-                  <SplitText text="something amazing?" animation="elastic" stagger={50} delay={200} />
+                  <SplitText
+                    text="something amazing?"
+                    animation="elastic"
+                    stagger={50}
+                    delay={200}
+                  />
                 </span>
               </h2>
               <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
-                Let's create a product that your users will love. Book a call with our team today.
+                Let's create a product that your users will love. Book a call
+                with our team today.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-5 justify-center">
@@ -393,10 +480,16 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
                   <div className="p-6 rounded-2xl bg-card/50 border border-border/30 hover:border-accent/30 transition-all">
                     <div className="flex items-center gap-2 text-muted-foreground mb-3">
                       <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-                      <span className="text-sm font-medium">Previous Project</span>
+                      <span className="text-sm font-medium">
+                        Previous Project
+                      </span>
                     </div>
-                    <h3 className="text-2xl font-bold group-hover:text-accent transition-colors">{prevProject.name}</h3>
-                    <p className="text-muted-foreground text-sm mt-1">{prevProject.category}</p>
+                    <h3 className="text-2xl font-bold group-hover:text-accent transition-colors">
+                      {prevProject.name}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mt-1">
+                      {prevProject.category}
+                    </p>
                   </div>
                 </Card3D>
               </RevealOnScroll>
@@ -410,8 +503,12 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
                       <span className="text-sm font-medium">Next Project</span>
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </div>
-                    <h3 className="text-2xl font-bold group-hover:text-accent transition-colors">{nextProject.name}</h3>
-                    <p className="text-muted-foreground text-sm mt-1">{nextProject.category}</p>
+                    <h3 className="text-2xl font-bold group-hover:text-accent transition-colors">
+                      {nextProject.name}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mt-1">
+                      {nextProject.category}
+                    </p>
                   </div>
                 </Card3D>
               </RevealOnScroll>
@@ -420,5 +517,5 @@ export function ProjectPageClient({ project }: ProjectPageClientProps) {
         </div>
       </section>
     </main>
-  )
+  );
 }

@@ -1,58 +1,60 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { MagneticButton } from "@/components/magnetic-button"
-import { Menu, X } from "lucide-react"
-import { cn } from "@/lib/utils"
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { MagneticButton } from "@/components/magnetic-button";
+import { Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "#work", label: "Work" },
   { href: "#pricing", label: "Pricing" },
   { href: "#testimonials", label: "Testimonials" },
   { href: "#faq", label: "FAQs" },
-]
+];
 
 export function Header() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState("")
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      setIsScrolled(window.scrollY > 50);
 
-      const sections = ["work", "pricing", "testimonials", "faq"]
+      const sections = ["work", "pricing", "testimonials", "faq"];
       for (const section of sections) {
-        const element = document.getElementById(section)
+        const element = document.getElementById(section);
         if (element) {
-          const rect = element.getBoundingClientRect()
+          const rect = element.getBoundingClientRect();
           if (rect.top <= 200 && rect.bottom >= 200) {
-            setActiveSection(section)
-            break
+            setActiveSection(section);
+            break;
           }
         }
       }
-    }
+    };
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleNavClick = (href: string) => {
-    setIsMobileMenuOpen(false)
-    const element = document.querySelector(href)
+    setIsMobileMenuOpen(false);
+    const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      element.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        isScrolled ? "bg-background/80 backdrop-blur-xl border-b border-border/50 py-3" : "bg-transparent py-6",
+        isScrolled
+          ? "bg-background/80 backdrop-blur-xl border-b border-border/50 py-3"
+          : "bg-transparent py-6"
       )}
     >
       <div className="container mx-auto px-6">
@@ -79,7 +81,7 @@ export function Header() {
                   "relative px-4 py-2 text-sm transition-all duration-300",
                   activeSection === item.href.replace("#", "")
                     ? "text-accent"
-                    : "text-muted-foreground hover:text-foreground",
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 {item.label}
@@ -92,15 +94,24 @@ export function Header() {
 
           <div className="hidden md:block">
             <MagneticButton strength={20}>
-              <Button className="relative overflow-hidden rounded-full border-0 bg-gradient-to-r from-accent to-orange-500 px-6 py-5 text-sm font-semibold text-accent-foreground transition-all duration-300 hover:shadow-lg hover:shadow-accent/25">
-                <span className="relative z-10">Book a Call</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-accent opacity-0 transition-opacity duration-300 hover:opacity-100" />
+              {/* FIX: Use asChild to render as a Link */}
+              <Button
+                asChild
+                className="relative overflow-hidden rounded-full border-0 bg-gradient-to-r from-accent to-orange-500 px-6 py-5 text-sm font-semibold text-accent-foreground transition-all duration-300 hover:shadow-lg hover:shadow-accent/25"
+              >
+                <Link href="https://cal.com/aiapps.dev/30min" target="_blank">
+                  <span className="relative z-10">Book a Call</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-accent opacity-0 transition-opacity duration-300 hover:opacity-100" />
+                </Link>
               </Button>
             </MagneticButton>
           </div>
 
           {/* Mobile Menu Button */}
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden p-2 text-foreground">
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 text-foreground"
+          >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -110,7 +121,7 @@ export function Header() {
       <div
         className={cn(
           "md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border transition-all duration-300 overflow-hidden",
-          isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0",
+          isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         )}
       >
         <nav className="container mx-auto px-6 py-6 flex flex-col gap-4">
@@ -124,9 +135,17 @@ export function Header() {
               {item.label}
             </button>
           ))}
-          <Button className="mt-4 rounded-full bg-accent text-accent-foreground">Book a Call</Button>
+          {/* FIX: Mobile menu link */}
+          <Button
+            asChild
+            className="mt-4 rounded-full bg-accent text-accent-foreground"
+          >
+            <Link href="https://cal.com/aiapps.dev/30min" target="_blank">
+              Book a Call
+            </Link>
+          </Button>
         </nav>
       </div>
     </header>
-  )
+  );
 }
