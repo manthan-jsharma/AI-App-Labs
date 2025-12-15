@@ -105,12 +105,22 @@ export function FAQSection() {
     <section id="faq" className="py-32 bg-card border-t border-border/50">
       <div className="container mx-auto px-6 max-w-4xl">
         <RevealOnScroll direction="down">
-          <h2 className="text-4xl md:text-6xl font-black text-center mb-20 tracking-tighter">
-            <SplitText
-              text="FAQ & OBJECTIONS"
-              animation="fadeUp"
-              stagger={60}
-            />
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-center mb-20 tracking-tighter">
+            <span className="inline-block">
+              <SplitText text="FAQ &" animation="fadeUp" stagger={60} />
+            </span>
+
+            <br className="block sm:hidden" />
+            <span className="hidden sm:inline-block">&nbsp;</span>
+
+            <span className="inline-block text-accent">
+              <SplitText
+                text="OBJECTIONS"
+                animation="fadeUp"
+                stagger={60}
+                delay={200}
+              />
+            </span>
           </h2>
         </RevealOnScroll>
 

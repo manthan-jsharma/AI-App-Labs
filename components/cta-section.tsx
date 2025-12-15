@@ -8,7 +8,6 @@ import { MagneticButton } from "@/components/magnetic-button";
 import { AnimatedGradientText } from "@/components/animated-gradient";
 import { SplitText } from "@/components/split-text";
 import { conceptExamples, clientProofs } from "@/lib/data";
-import { cn } from "@/lib/utils";
 
 export function CTASection() {
   return (

@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 export function BonusSection() {
   return (
     <section className="py-24 bg-background relative overflow-hidden">
-      {/* Subtle background pulse */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 blur-[100px] rounded-full" />
 
       <div className="container mx-auto px-6 relative z-10">

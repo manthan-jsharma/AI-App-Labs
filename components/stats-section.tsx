@@ -13,7 +13,6 @@ import { useRef, useState, useEffect } from "react";
 import {
   CheckCircle,
   Crown,
-  ArrowRight,
   LayoutDashboard,
   Settings2,
   MousePointerClick,
@@ -82,6 +81,7 @@ const dashboardScreenshots = [
   },
 ];
 
+// --- CHANGE 1: Optimized StatContent for Mobile Stability ---
 const StatContent = ({
   stat,
   count,
@@ -93,14 +93,15 @@ const StatContent = ({
 }) => (
   <div
     className={cn(
-      "relative h-full px-6 py-8 rounded-2xl bg-gradient-to-br from-card to-background border border-border/50 overflow-hidden transform-gpu will-change-[transform,opacity] [backface-visibility:hidden]",
-
+      "relative h-full px-6 py-8 rounded-2xl bg-gradient-to-br from-card to-background border border-border/50 overflow-hidden",
+      // Removed generic will-change, added specific backface-visibility
+      "transform-gpu backface-hidden translate-z-0",
       "md:hover:border-accent/30 md:hover:shadow-[0_0_30px_-10px_rgba(249,115,22,0.3)]",
-
       hasPlayed ? "opacity-100" : "opacity-0"
     )}
     style={{
-      transform: hasPlayed ? "none" : "translateY(32px)",
+      // Changed from 'none' vs 'translateY' to 'translate3d' to keep GPU active
+      transform: hasPlayed ? "translate3d(0,0,0)" : "translate3d(0,32px,0)",
       transition: "opacity 0.7s ease-out, transform 0.7s ease-out",
     }}
   >
@@ -127,13 +128,14 @@ const StatContent = ({
 
 function StatCard({ stat, index }: { stat: typeof stats[0]; index: number }) {
   const { ref, isVisible } = useScrollAnimation<HTMLDivElement>({
-    threshold: 0.2,
+    threshold: 0.1, // Lowered threshold slightly for smoother mobile triggers
   });
 
   const [hasPlayed, setHasPlayed] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
+    // Latch logic: Once played, keep it played to prevent reverse-scroll flickering
     if (isVisible && !hasPlayed) {
       setHasPlayed(true);
     }
@@ -159,7 +161,8 @@ function StatCard({ stat, index }: { stat: typeof stats[0]; index: number }) {
           <StatContent stat={stat} count={count} hasPlayed={hasPlayed} />
         </TiltCard>
       ) : (
-        <div className="group h-full">
+        // Mobile Wrapper: Ensure simple stacking context
+        <div className="group h-full transform-gpu">
           <StatContent stat={stat} count={count} hasPlayed={hasPlayed} />
         </div>
       )}
@@ -175,9 +178,10 @@ function InfiniteLogoMarquee() {
       <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-card to-transparent z-10" />
       <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-card to-transparent z-10" />
 
+      {/* Added transform-gpu to marquee container */}
       <div
         ref={marqueeRef}
-        className="flex animate-marquee group-hover:[animation-play-state:paused]"
+        className="flex animate-marquee group-hover:[animation-play-state:paused] transform-gpu backface-hidden"
       >
         {[...logos, ...logos, ...logos].map((logo, index) => (
           <div
@@ -216,7 +220,8 @@ function DashboardShowcase() {
   }, [api]);
 
   const BrowserContent = (
-    <div className="relative w-full rounded-2xl md:rounded-3xl border border-white/10 bg-card/50 backdrop-blur-xl overflow-hidden shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]">
+    // --- CHANGE 2: Stabilized Browser Container ---
+    <div className="relative w-full rounded-2xl md:rounded-3xl border border-white/10 bg-card/50 backdrop-blur-xl overflow-hidden shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] transform-gpu backface-hidden">
       <div className="h-10 md:h-12 border-b border-white/10 flex items-center px-4 gap-2 bg-black/20">
         <div className="flex gap-1.5">
           <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-500/20 border border-red-500/50" />
@@ -229,16 +234,18 @@ function DashboardShowcase() {
         </div>
       </div>
 
-      {/* Carousel */}
       <Carousel setApi={setApi} className="w-full bg-black/40">
         <CarouselContent>
           {dashboardScreenshots.map((shot, index) => (
             <CarouselItem key={index}>
-              <div className="relative aspect-[16/10] overflow-hidden group/image">
+              {/* --- CHANGE 3: Fixed Image Flicker on Swipe --- */}
+              <div className="relative aspect-[16/10] overflow-hidden group/image backface-hidden transform-gpu">
                 <img
                   src={shot.src}
                   alt={shot.title}
                   className="w-full h-full object-cover transform-gpu transition-transform duration-700 ease-out md:group-hover/image:scale-105"
+                  // Added rendering hint for browsers
+                  loading="eager"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-100 md:group-hover/image:opacity-0 transition-opacity duration-300 flex flex-col justify-end p-4 md:p-8">
                   <h3 className="text-lg md:text-2xl font-bold text-white mb-1">
@@ -306,7 +313,8 @@ function DashboardShowcase() {
           {BrowserContent}
         </Card3D>
       ) : (
-        <div className="w-full">{BrowserContent}</div>
+        // --- CHANGE 4: Isolated Mobile Layer ---
+        <div className="w-full transform-gpu isolate">{BrowserContent}</div>
       )}
       <div className="flex justify-center gap-2 mt-4 md:mt-6">
         {dashboardScreenshots.map((_, i) => (

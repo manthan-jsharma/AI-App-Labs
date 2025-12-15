@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { RevealOnScroll } from "@/components/reveal-on-scroll";
 import { TiltCard } from "@/components/tilt-card";
 import { MagneticButton } from "@/components/magnetic-button";
-import { AnimatedGradientText } from "@/components/animated-gradient";
 import { SplitText } from "@/components/split-text";
 import { cn } from "@/lib/utils";
 import { pricingPlans } from "@/lib/data";
