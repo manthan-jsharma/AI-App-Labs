@@ -1,37 +1,47 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react";
 
 export function CursorGlow() {
-  const [position, setPosition] = useState({ x: 0, y: 0 })
-  const [isVisible, setIsVisible] = useState(false)
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+
+    let rafId: number;
+
     const handleMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY })
-      setIsVisible(true)
-    }
+      // OPTIMIZATION: Update transform directly, NO React state update here
+      cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+
+      // Only set visible state if it wasn't visible before (avoids constant re-renders)
+      if (!isVisible) setIsVisible(true);
+    };
 
     const handleMouseLeave = () => {
-      setIsVisible(false)
-    }
+      setIsVisible(false);
+    };
 
-    window.addEventListener("mousemove", handleMouseMove)
-    document.addEventListener("mouseleave", handleMouseLeave)
+    window.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-      document.removeEventListener("mouseleave", handleMouseLeave)
-    }
-  }, [])
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+      cancelAnimationFrame(rafId);
+    };
+  }, [isVisible]); // isVisible dependency ensures we don't re-bind unnecessarily
 
   return (
     <div
-      className="pointer-events-none fixed z-50 transition-opacity duration-300"
+      ref={cursorRef}
+      className="pointer-events-none fixed top-0 left-0 z-50 transition-opacity duration-300 will-change-transform"
       style={{
-        left: position.x,
-        top: position.y,
         opacity: isVisible ? 1 : 0,
+        // Initial position off-screen
+        transform: "translate3d(-100px, -100px, 0)",
       }}
     >
       <div className="relative -translate-x-1/2 -translate-y-1/2">
@@ -39,5 +49,5 @@ export function CursorGlow() {
         <div className="absolute h-32 w-32 translate-x-16 translate-y-16 rounded-full bg-accent/10 blur-2xl" />
       </div>
     </div>
-  )
+  );
 }

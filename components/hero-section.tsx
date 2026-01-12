@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -12,25 +12,37 @@ import { GradientBlob } from "@/components/gradient-blob";
 import { MorphingText } from "@/components/morphing-text";
 
 export function HeroSection() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef<HTMLElement>(null);
-  const [scrollY, setScrollY] = useState(0);
+  const backgroundRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const hero = heroRef.current;
+    const bg = backgroundRef.current;
+    if (!hero) return;
+    let rafId: number;
+
     const handleMouseMove = (e: MouseEvent) => {
-      if (!heroRef.current) return;
-      const rect = heroRef.current.getBoundingClientRect();
-      setMousePosition({
-        x: ((e.clientX - rect.left) / rect.width - 0.5) * 40,
-        y: ((e.clientY - rect.top) / rect.height - 0.5) * 40,
-      });
+      if (!hero) return;
+      const rect = hero.getBoundingClientRect();
+
+      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 40;
+      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 40;
+      hero.style.setProperty("--mouse-x", `${x}`);
+      hero.style.setProperty("--mouse-y", `${y}`);
     };
-    const handleScroll = () => setScrollY(window.scrollY);
+
+    const handleScroll = () => {
+      if (!bg) return;
+      bg.style.transform = `translateY(${window.scrollY * 0.2}px)`;
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("scroll", handleScroll, { passive: true });
+
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -38,6 +50,12 @@ export function HeroSection() {
     <section
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center pt-32 pb-20 overflow-hidden"
+      style={
+        {
+          "--mouse-x": "0",
+          "--mouse-y": "0",
+        } as React.CSSProperties
+      }
     >
       <GradientBlob
         className="top-20 left-[5%] w-[800px] h-[800px] opacity-40 animate-pulse"
@@ -49,29 +67,25 @@ export function HeroSection() {
         colors={["rgba(59,130,246,0.15)", "transparent", "transparent"]}
         speed={7000}
       />
-
       <div
-        className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"
-        style={{ transform: `translateY(${scrollY * 0.2}px)` }}
+        ref={backgroundRef}
+        className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px] will-change-transform"
       />
+
       <ParallaxLayer
         speed={-0.15}
         className="absolute inset-0 pointer-events-none"
       >
         <div
-          className="absolute top-40 left-[10%] w-24 h-24 border border-accent/20 rounded-full blur-[1px]"
+          className="absolute top-40 left-[10%] w-24 h-24 border border-accent/20 rounded-full blur-[1px] transition-transform duration-100 ease-out"
           style={{
-            transform: `translate(${mousePosition.x * 1.5}px, ${
-              mousePosition.y * 1.5
-            }px)`,
+            transform: `translate(calc(var(--mouse-x) * 1.5px), calc(var(--mouse-y) * 1.5px))`,
           }}
         />
         <div
-          className="absolute bottom-40 right-[10%] w-32 h-32 border border-blue-500/20 rotate-45 blur-[1px]"
+          className="absolute bottom-40 right-[10%] w-32 h-32 border border-blue-500/20 rotate-45 blur-[1px] transition-transform duration-100 ease-out"
           style={{
-            transform: `translate(${mousePosition.x * -1.2}px, ${
-              mousePosition.y * -1.2
-            }px)`,
+            transform: `translate(calc(var(--mouse-x) * -1.2px), calc(var(--mouse-y) * -1.2px))`,
           }}
         />
       </ParallaxLayer>
@@ -92,7 +106,7 @@ export function HeroSection() {
           </FloatingElement>
         </RevealOnScroll>
 
-        {/* Headlines with Elastic Jump Effect */}
+        {/* Headlines */}
         <div className="mb-8">
           <RevealOnScroll delay={100} direction="up">
             <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-4 leading-[1.1] md:leading-[0.9]">
@@ -174,7 +188,6 @@ export function HeroSection() {
                     BUILD MY ASSET
                     <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-2" />
                   </span>
-                  {/* Aggressive Shine Effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
                 </Link>
               </Button>
@@ -182,7 +195,7 @@ export function HeroSection() {
           </div>
         </RevealOnScroll>
 
-        {/* Social Proof Ticker with Hover Glow */}
+        {/* Social Proof */}
         <RevealOnScroll delay={700} direction="fade">
           <div className="mt-20 pt-10 border-t border-border/20">
             <p className="text-xs md:text-sm text-muted-foreground mb-8 uppercase tracking-[0.2em] font-bold">

@@ -1,29 +1,42 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef } from "react";
 
 export function ScrollProgress() {
-  const [progress, setProgress] = useState(0)
+  const progressRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight
-      const scrollProgress = (scrollTop / docHeight) * 100
-      setProgress(scrollProgress)
-    }
+      if (!progressRef.current || !glowRef.current) return;
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+      const scrollTop = window.scrollY;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const scrollProgress = docHeight > 0 ? scrollTop / docHeight : 0;
+
+      const transformValue = `scaleX(${scrollProgress})`;
+
+      progressRef.current.style.transform = transformValue;
+      glowRef.current.style.transform = transformValue;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div className="fixed top-0 left-0 right-0 z-[100] h-1 bg-transparent">
       <div
-        className="h-full bg-gradient-to-r from-accent via-orange-400 to-amber-500 transition-all duration-150 ease-out"
-        style={{ width: `${progress}%` }}
+        ref={progressRef}
+        className="h-full bg-gradient-to-r from-accent via-orange-400 to-amber-500 origin-left will-change-transform"
+        style={{ transform: "scaleX(0)" }}
       />
-      <div className="absolute top-0 h-full bg-accent/50 blur-sm" style={{ width: `${progress}%` }} />
+      <div
+        ref={glowRef}
+        className="absolute top-0 h-full bg-accent/50 blur-sm origin-left will-change-transform"
+        style={{ transform: "scaleX(0)", width: "100%" }}
+      />
     </div>
-  )
+  );
 }

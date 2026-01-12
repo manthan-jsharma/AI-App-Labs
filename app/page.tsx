@@ -1,27 +1,44 @@
+import dynamic from "next/dynamic";
 import { Header } from "@/components/header";
 import { HeroSection } from "@/components/hero-section";
-import { StatsSection } from "@/components/stats-section";
-import { WorkShowcaseSection } from "@/components/work-showcase-section";
-import { HowWeWorkSection } from "@/components/how-we-work-section";
-import { FeaturesSection } from "@/components/features-section";
-import { PricingSection } from "@/components/pricing-section";
-import { TechStackSection } from "@/components/tech-stack-section";
-import { BonusSection } from "@/components/bonus-section";
-import { FAQSection } from "@/components/faq-section";
-import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
-import { ScrollProgress } from "@/components/scroll-progress";
-import { CursorGlow } from "@/components/cursor-glow";
-import { ParticleField } from "@/components/particle-field";
-import { MouseTrail } from "@/components/mouse-trail";
+import { BackgroundEffects } from "@/components/background-effects";
+
+const WorkShowcaseSection = dynamic(() =>
+  import("@/components/work-showcase-section").then(
+    (mod) => mod.WorkShowcaseSection
+  )
+);
+const HowWeWorkSection = dynamic(() =>
+  import("@/components/how-we-work-section").then((mod) => mod.HowWeWorkSection)
+);
+const FeaturesSection = dynamic(() =>
+  import("@/components/features-section").then((mod) => mod.FeaturesSection)
+);
+const TechStackSection = dynamic(() =>
+  import("@/components/tech-stack-section").then((mod) => mod.TechStackSection)
+);
+const PricingSection = dynamic(() =>
+  import("@/components/pricing-section").then((mod) => mod.PricingSection)
+);
+const StatsSection = dynamic(() =>
+  import("@/components/stats-section").then((mod) => mod.StatsSection)
+);
+const BonusSection = dynamic(() =>
+  import("@/components/bonus-section").then((mod) => mod.BonusSection)
+);
+const FAQSection = dynamic(() =>
+  import("@/components/faq-section").then((mod) => mod.FAQSection)
+);
+const CTASection = dynamic(() =>
+  import("@/components/cta-section").then((mod) => mod.CTASection)
+);
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <ScrollProgress />
-      <CursorGlow />
-      <ParticleField />
-      <MouseTrail />
+    <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <BackgroundEffects />
+
       <Header />
       <HeroSection />
       <WorkShowcaseSection />
@@ -33,6 +50,7 @@ export default function Home() {
       <BonusSection />
       <FAQSection />
       <CTASection />
+
       <Footer />
     </main>
   );
