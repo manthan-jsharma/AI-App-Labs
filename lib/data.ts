@@ -104,7 +104,7 @@ export const pricingPlans = [
     name: "The Validator (MVP)",
     subtitle: "Speed to Market",
     description: "For the founder who needs to validate an idea immediately.",
-    price: "$15,000",
+    price: "$25,000",
     period: "One-Time",
     features: [
       "14-Day Delivery Guarantee",
